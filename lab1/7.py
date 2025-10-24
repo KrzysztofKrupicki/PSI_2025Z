@@ -1,37 +1,30 @@
 import asyncio
 
-async def krojenieWarzyw():
-    print("Krojenie warzyw")
+async def krojenieWarzyw(danie: str) -> None:
+    print(f"{danie} - Krojenie warzyw rozpoczęte")
     await asyncio.sleep(2)
+    print(f"{danie} - Krojenie warzyw zakończone")
 
-async def gotowanieMakaronu():
-    print("Gotowanie makaronu")
+async def gotowanieMakaronu(danie: str) -> None:
+    print(f"{danie} - Gotowanie makaronu rozpoczęte")
     await asyncio.sleep(5)
+    print(f"{danie} - Gotowanie makaronu zakończone")
 
-async def smazenie():
-    print("Smażenie")
+async def smazenie(danie: str) -> None:
+    print(f"{danie} - Smażenie rozpoczęte")
     await asyncio.sleep(3)
+    print(f"{danie} - Smażenie zakończone")
 
-async def kuchnia():
-    await krojenieWarzyw()
-    await gotowanieMakaronu()
-    await smazenie()
+async def kuchnia(danie: str) -> None:
+    print(f"Kuchna danie: {danie}")
+    await krojenieWarzyw(danie)
+    await gotowanieMakaronu(danie)
+    await smazenie(danie)
+    print(f"Kuchna danie: {danie} - gotowe!")
+
+async def main() -> None:
+    await asyncio.gather(kuchnia('Danie 1'), kuchnia('Danie 2'), kuchnia('Danie 3'))
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
-    task = loop.create_task(kuchnia())
-
-    try:
-        loop.run_until_complete(task)
-    except KeyboardInterrupt:
-        print("Przerwanie")
-
-        tasks = asyncio.all_tasks(loop=loop)
-        for task_ in tasks:
-            task_.cancel()
-        
-        group = asyncio.gather(*tasks, return_exceptions=True)
-        loop.run_until_complete(group)
-        loop.close()
+    with asyncio.Runner() as runner:
+        runner.run(main())

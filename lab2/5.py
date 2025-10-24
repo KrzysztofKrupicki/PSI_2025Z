@@ -1,7 +1,8 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 import aiohttp
 import asyncio
+
 
 async def fetch(url: str) -> str:
     async with aiohttp.ClientSession() as session:
@@ -21,6 +22,7 @@ async def get_weather(city: str, latitude: float, longitude: float) -> float:
         if forecast_time.hour == current_hour:
             return float(temperatures[i])
 
+
 async def main() -> None:
     cities = {
         "Porlamar": [10.95, -63.87],
@@ -35,10 +37,9 @@ async def main() -> None:
 
     temperatures = await asyncio.gather(*tasks)
 
-    result = {}
-    for i, city in enumerate(cities):
-        result[city] = temperatures[i]
+    result = dict(zip(cities.keys(), temperatures))
     print(result)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

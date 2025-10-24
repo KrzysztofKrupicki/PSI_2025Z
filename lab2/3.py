@@ -1,5 +1,3 @@
-from asyncio import gather
-
 import aiohttp
 import asyncio
 
@@ -11,16 +9,16 @@ async def fetch(url: str) -> str:
 
 
 async def main() -> None:
-    urls = {
+    urls = [
         "https://api.dictionaryapi.dev/api/v2/entries/en/hello",
         "https://pokeapi.co/api/v2/pokemon/ditto",
         "https://rickandmortyapi.com/api/character",
         "https://dog.ceo/api/breed/affenpinscher/images/random",
         "https://v2.jokeapi.dev/joke/Any"
-    }
+    ]
 
     tasks = [fetch(url) for url in urls]
-    results = await gather(*tasks)
+    results = await asyncio.gather(*tasks)
 
     for result in results:
         print(result)

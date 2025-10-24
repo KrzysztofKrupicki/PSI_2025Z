@@ -15,8 +15,8 @@ async def main() -> None:
         "name": "Nowy uzytkownik",
         "avatar": "https://plus.unsplash.com/premium_photo-1683865776032-07bf70b0add1?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     }
-    users = await add_user(url=url, header=header, body=body)
-    print(users)
+    user = await add_user(url=url, header=header, body=body)
+    print(user)
 
 
 if __name__ == "__main__":

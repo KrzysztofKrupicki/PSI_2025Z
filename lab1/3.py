@@ -9,8 +9,7 @@ async def foo2():
     print("Korutyna foo2")
 
 async def main():
-    await foo1()
-    await foo2()
+    await asyncio.gather(foo1(), foo2())
 
 if __name__ == "__main__":
     with asyncio.Runner() as runner:

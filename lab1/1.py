@@ -1,6 +1,6 @@
 import asyncio
 
-async def main():
+async def main() -> None:
     await asyncio.sleep(2)
     print("Oczekiwanie zakończone")
 
